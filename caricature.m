@@ -1,4 +1,5 @@
-function caricatures = caricature(timeseries,PCs,PCs2remove,fisher)
+function caricatures = ...
+    caricature(timeseries,eigenvectors,eigenvectors2remove,fisher)
 %% creates caricatured connectomes
 
 % INPUTS %
@@ -10,15 +11,15 @@ function caricatures = caricature(timeseries,PCs,PCs2remove,fisher)
 % a truncated time-series, then the z-scoring should be done prior to the 
 % truncation.
 %
-% Name: PCs, Data Type: matrix, Size: n_nodes X n_nodes
+% Name: eigenvectors, Data Type: matrix, Size: n_nodes X n_nodes
 % Description: This variable is a square matrix of size equal to the
 % number of nodes in the parcellation atlas. Each column represents the
-% PCs in order, and each row represents how that node contributes to
-% the PC.
+% eigenvectorss in order, and each row represents how that node contributes
+% to the eigenvector.
 %
-% Name: PCs2remove, Data Type: matrix, Size: 1 X n_pcs2remove
-% Description: This variable is a vector indicating which PCs should be
-% projected away in the caricaturing.
+% Name: eigenvectors2remove, Data Type: matrix, Size: 1 X n_eigenvectors2remove
+% Description: This variable is a vector indicating which eigenvectors
+% should be projected away in the caricaturing.
 %
 % Name: fisher, Data Type: binary
 % Description: This variable indicates whether to Fisher transform the 
@@ -34,8 +35,8 @@ n_frames = size(timeseries,1);
 n_nodes = size(timeseries,2);
 
 %% Caricature
-PCs(:,PCs2remove) = [];
-projection_matrix = PCs * PCs';
+eigenvectors(:,eigenvectors2remove) = [];
+projection_matrix = eigenvectors * eigenvectors';
 % permute timeseries to by n_frames X n_subjects X n_nodes
 timeseries = permute(timeseries,[1 3 2]);
 projected_ts = reshape(timeseries,[],size(timeseries,3)) * projection_matrix;

@@ -1,5 +1,6 @@
-function [PCs,score,latent] = create_task_manifold(timeseries)
-%% concatenates time-series for all subjects and tasks and performs PCA
+function [eigenvectors,variance_explained] = create_task_manifold(timeseries)
+%% concatenates time-series for all subjects and tasks and performs
+%% eigendecomposition on the corresponding covariance matrix
 
 % INPUTS %
 % Name: timeseries, Data Type: cell, Size: n_tasks X 1
@@ -10,11 +11,16 @@ function [PCs,score,latent] = create_task_manifold(timeseries)
 % (n_subjects). 
 
 % OUTPUTS %
-% Name: PCs, Data Type: matrix, Size: n_nodes X n_nodes
+% Name: eigenvectors, Data Type: matrix, Size: n_nodes X n_nodes
 % Description: This variable is a square matrix of size equal to the
 % number of nodes in the parcellation atlas. Each column represents the
-% PCs in order, and each row represents how that node contributes to
-% the PC.
+% eigenvectors in order of variance explained, and each row represents how
+% that node contributes to the eigenvector.
+%
+% Name: variance_explained, Data Type: vector, Size: n_nodes X 1
+% Description: This variable is a vector of length equal to the number of
+% nodes in the parcellation atlas. Each entry represents the amount of
+% variance explained in timeseries by the corresponding eigenvector.
 
 %% Set basic values
 n_tasks = length(timeseries);
@@ -38,7 +44,13 @@ for task_index = 1:n_tasks
     full_timeseries = cat(1,full_timeseries,full_timeseries_current_task);
 end
 
-%% Perform PCA
-[PCs,score,latent] = pca(full_timeseries,'Centered',false,'Economy',false);
+%% Perform Eigendecomposition
+% calculate covariance matrix
+covariance_mat = cov(full_timeseries,1);
+% eigendecomposition
+[eigenvectors,variance_explained] = eig(covariance_mat);
+% sort eigenvectors in descending order of explained variance
+[variance_explained,sort_inds] = sort(variance_explained(find(eye(n_nodes))),'descend');
+eigenvectors = eigenvectors(:,sort_inds);
 
 end
