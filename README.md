@@ -15,10 +15,12 @@ The functions in this repository are used to caricature resting-state fMRI time 
        values to 0.05 and 1:1000 respectively.  
   iii) The output is a structure with predictions for both the standard and caricatured models.
 
-1 Poldrack, R. A. et al. A phenome-wide examination of neural and cognitive function. Sci. Data 3, 160110 (2016).
 3) Running fingerprinting in the HCP dataset using the CNP-derived task manifold for caricaturing  
     i) Load the LR phase-encoded resting-state HCP data as timeseries1 (size: n_frames X n_nodes X n_subjects), the RL phase-encoded resting-state HCP data as 
        timeseries2 (size: n_frames X n_nodes X n_subjects), and the eigenvectors from the CNP manifold.  
    ii) Run the run_fingerprinting.m function with these as inputs.  
   iii) The output is a structure with fingerprinting accuracy, within-participant similarities, between-participant similarities, and statistics information based 
        on permutation testing.
+
+
+1 Poldrack, R. A. et al. A phenome-wide examination of neural and cognitive function. Sci. Data 3, 160110 (2016).
