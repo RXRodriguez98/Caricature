@@ -1,5 +1,5 @@
 # Caricature Repository
-The functions in this repository are used to caricature resting-state fMRI time series data and perform subsequent analyses on the resulting connectomes. Note that discriminability.m is based on code that can be originally found at https://github.com/ebridge2/Discriminability/tree/master, fingerprinting.m and separation.m are based on code originally available at https://github.com/SNeuroble/fingerprinting, the functions calculate_icc_from_variance.m, calculate_icc_from_variance_3_factors.m, calculate_variance_comps.m, and calculate_variance_comps_3_factors.m are based on code originally found at https://github.com/SNeuroble/Multifactor_ICC, cpm_classifier_family_cv.m is an updated code based on that found in https://github.com/YaleMRRC/CPM/tree/master/matlab/func, and ridgeCPM.m is an updated code based on that found in https://github.com/mattrosenblatt7/trust_connectomes/tree/main/utils.
+The functions in this repository are used to caricature resting-state fMRI time series data and perform subsequent analyses on the resulting connectomes. The task-based eigenvectors from the Consortium for Neuropsychiatric Phenomics (CNP) dataset^1 are also included to facilitate caricaturing without maintaining task data on one's own computer. Note that discriminability.m is based on code that can be originally found at https://github.com/ebridge2/Discriminability/tree/master, fingerprinting.m and separation.m are based on code originally available at https://github.com/SNeuroble/fingerprinting, the functions calculate_icc_from_variance.m, calculate_icc_from_variance_3_factors.m, calculate_variance_comps.m, and calculate_variance_comps_3_factors.m are based on code originally found at https://github.com/SNeuroble/Multifactor_ICC, cpm_classifier_family_cv.m is an updated code based on that found in https://github.com/YaleMRRC/CPM/tree/master/matlab/func, and ridgeCPM.m is an updated code based on that found in https://github.com/mattrosenblatt7/trust_connectomes/tree/main/utils.
 
 # Examples
 1) Creating a task manifold using the CNP dataset  
@@ -15,6 +15,7 @@ The functions in this repository are used to caricature resting-state fMRI time 
        values to 0.05 and 1:1000 respectively.  
   iii) The output is a structure with predictions for both the standard and caricatured models.
 
+1 Poldrack, R. A. et al. A phenome-wide examination of neural and cognitive function. Sci. Data 3, 160110 (2016).
 3) Running fingerprinting in the HCP dataset using the CNP-derived task manifold for caricaturing  
     i) Load the LR phase-encoded resting-state HCP data as timeseries1 (size: n_frames X n_nodes X n_subjects), the RL phase-encoded resting-state HCP data as 
        timeseries2 (size: n_frames X n_nodes X n_subjects), and the eigenvectors from the CNP manifold.  
